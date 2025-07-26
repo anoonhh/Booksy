@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import api from '@/lib/api';
+import Image from 'next/image';
 
 
 
@@ -203,10 +204,15 @@ const AddBook = () => {
               <input type="file" accept="image/*" {...register('image')} onChange={handleImageChange}/>
               {previewImageUrl && (
                   <Box mt={2} display="flex" justifyContent="center">
-                    <img
+                    <Image
                       src={previewImageUrl}
                       alt="Preview"
-                      style={{ maxWidth: '150px', maxHeight: '200px', borderRadius: '8px', objectFit: 'cover' }}
+                      width={150}
+                      height={200}
+                      style={{
+                        borderRadius: '8px',
+                        objectFit: 'cover',
+                      }}
                     />
                   </Box>
                 )}

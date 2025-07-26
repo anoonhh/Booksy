@@ -16,6 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup';
 import api from '@/lib/api';
+import Image from 'next/image';
 
 
 const schema = yup.object().shape({
@@ -133,6 +134,7 @@ const UpdateBook = () => {
       .catch(() => {
         alert('error fetching data')
       })
+     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id])
 
     const onSubmit = async(data: UpdateFormData) => {
@@ -290,7 +292,7 @@ const UpdateBook = () => {
               <input type="file" accept="image/*" {...register('image')} onChange={handleImagechange}/>
               {previewImageUrl && (
                 <Box mt={2} display="flex" justifyContent="center">
-                  <img
+                  <Image
                     src={previewImageUrl}
                     alt="Preview"
                     style={{ maxWidth: '150px', maxHeight: '200px', borderRadius: '8px', objectFit: 'cover' }}

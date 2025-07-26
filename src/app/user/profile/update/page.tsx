@@ -82,6 +82,7 @@ const UpdateProfilePage = () => {
     .catch((err) => {
       alert('Error fetching Data!')
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -40,6 +40,7 @@ const ViewBookPage = () => {
       .catch((err) => {
         alert('Unable to load book!')
       })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   if (!book) {

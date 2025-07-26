@@ -43,6 +43,7 @@
 
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -63,7 +64,7 @@ const HomeDesign = () => {
       <div>
 
       {/* Image positioned absolutely (adjust for mobile and desktop) */}
-      <img
+      <Image
         src="/images/harry_edited.png"
         alt="Harry Potter Book"
         className="absolute z-10 bottom-[-25px] left-1/2 transform -translate-x-1/2 md:left-56 md:translate-x-0 w-52 sm:w-64 md:w-[350px] h-auto"
@@ -77,7 +78,7 @@ const HomeDesign = () => {
         {/* Text + Button Section */}
         <div className="w-full md:w-1/2 text-center md:text-left mt-6 md:mt-0 px-6 md:px-10">
           <p className="text-gray-700 text-base md:text-lg mb-6">
-            Dive into stories that transport you beyond imagination. Whether you're looking for mystery, magic, or meaning—<strong>Booksy</strong> brings your next adventure to your fingertips.
+            Dive into stories that transport you beyond imagination. Whether you&apos;re looking for mystery, magic, or meaning—<strong>Booksy</strong> brings your next adventure to your fingertips.
           </p>
           <Link href="/login">
             <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300">

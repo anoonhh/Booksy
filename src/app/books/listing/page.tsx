@@ -45,6 +45,7 @@ const BookListingPage = () => {
     .catch((err) => {
       alert('Error fetching books')
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[page])
 
   return (
