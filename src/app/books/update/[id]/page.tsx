@@ -127,7 +127,8 @@ const UpdateBook = () => {
 
         if (data.image) {
           // assuming `data.image` is the path or URL
-          setPreviewImageUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${data.image}`);
+          const imagePath = data.image.replace(/\\/g, '/');
+          setPreviewImageUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${imagePath}`);
         }
 
       })
@@ -292,11 +293,16 @@ const UpdateBook = () => {
               <input type="file" accept="image/*" {...register('image')} onChange={handleImagechange}/>
               {previewImageUrl && (
                 <Box mt={2} display="flex" justifyContent="center">
-                  <Image
-                    src={previewImageUrl}
-                    alt="Preview"
-                    style={{ maxWidth: '150px', maxHeight: '200px', borderRadius: '8px', objectFit: 'cover' }}
-                  />
+                 <Image
+                  src={previewImageUrl}
+                  alt="Preview"
+                  width={150}
+                  height={200}
+                  style={{
+                    borderRadius: '8px',
+                    objectFit: 'cover',
+                  }}
+                />
                 </Box>
               )}
             </Box>

@@ -76,6 +76,8 @@ const UpdateProfilePage = () => {
 
   useEffect (() => {
 
+     if (!token) return;
+
     api.get('/viewprofile',{
       headers: {
         'Authorization': `Bearer ${token}`
@@ -92,7 +94,7 @@ const UpdateProfilePage = () => {
       alert('Error fetching Data!')
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[token])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]

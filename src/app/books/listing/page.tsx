@@ -54,6 +54,8 @@ const BookListingPage = () => {
 
   useEffect(() => {
 
+    if (!token) return; // ⛔ don't call API if token not ready
+
     api.get(`/api/book?limit=${limit}&skip=${skip}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -67,7 +69,7 @@ const BookListingPage = () => {
       alert('Error fetching books')
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[page])
+  },[page,token])
 
   return (
     <Box className="bg-stone-200 min-h-screen py-10">
