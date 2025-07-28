@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -39,11 +39,11 @@ const schema = yup.object().shape({
   .required('Rating is required')
   .min(0, 'Rating cannot be less than 0')
   .max(5, 'Rating cannot be more than 5'),
-
+  
   image: yup
-    .mixed()
-    .required("Image is required")
-    .test("fileExist", "Please upload a file", (value) => {
+  .mixed()
+  .required("Image is required")
+  .test("fileExist", "Please upload a file", (value) => {
       const files = value as File[];
       return files && files.length > 0;
     })
@@ -63,13 +63,22 @@ type AddFormData = yup.InferType<typeof schema>
 
 
 const AddBook = () => {
-
+  
+  // const token = localStorage.getItem('token')
   const router = useRouter()
-  const token = localStorage.getItem('token')
+  const [token, setToken] = useState<string | null>(null);
 
+  // ✅ Correct way to access localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedToken = localStorage.getItem('token');
+      setToken(storedToken);
+    }
+  }, []);
+  
   //image preview
   const [previewImageUrl, setPreviewImageUrl] = React.useState<string | null>(null)
-
+  
   const {
     register,
     handleSubmit,
@@ -77,18 +86,18 @@ const AddBook = () => {
   } = useForm({
     resolver: yupResolver(schema),
   }) 
-
+  
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if(file && ['image/jpeg', 'image/png','image/jpg'].includes(file.type)){
       setPreviewImageUrl(URL.createObjectURL(file))
     }
-
+    
     register('image').onChange(e)
   }
-
+  
   const onSubmit = async (data: AddFormData) => {
-
+    
     const formData = new FormData()
     formData.append('title', data.title)
     formData.append('author', data.author)
@@ -106,7 +115,7 @@ const AddBook = () => {
         'Content-Type': 'multipart/form-data'
       }
     })
-
+    
     .then((res) => {
       alert("Book added successfully")
       router.push('/books/listing')
@@ -114,11 +123,11 @@ const AddBook = () => {
     .catch(() => {
       alert("Error adding book")
     })
-
-
+    
+    
   }
-
-
+  
+  
   return (
     <Box className="min-h-screen bg-stone-200 flex items-center justify-center py-10">
       <Container maxWidth="sm">

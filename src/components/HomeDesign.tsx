@@ -64,11 +64,13 @@ const HomeDesign = () => {
       <div>
 
       {/* Image positioned absolutely (adjust for mobile and desktop) */}
-      <Image
-        src="/images/harry_edited.png"
-        alt="Harry Potter Book"
-        className="absolute z-10 bottom-[-25px] left-1/2 transform -translate-x-1/2 md:left-56 md:translate-x-0 w-52 sm:w-64 md:w-[350px] h-auto"
-      />
+        <Image
+          src="/images/harry_edited.png"
+          alt="Harry Potter Book"
+          width={350}
+          height={500} // Approximate value; adjust based on actual image ratio
+          className="absolute z-10 bottom-[-25px] left-1/2 transform -translate-x-1/2 md:left-56 md:translate-x-0 w-52 sm:w-64 md:w-[350px] h-auto"
+        />
 
       {/* Background Gradient Section */}
       <div className="relative z-0 bg-gradient-to-br from-[#fdf6f0] via-[#fbe9f0] to-[#e6d1dc] m-4 md:m-7 rounded-2xl min-h-[50vh] flex flex-col md:flex-row items-center justify-around p-6">

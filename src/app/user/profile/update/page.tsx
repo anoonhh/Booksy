@@ -9,7 +9,7 @@ import {
   Typography,
   Avatar,
 } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup';
@@ -51,8 +51,17 @@ type UpdateProfileData = yup.InferType<typeof schema>
 const UpdateProfilePage = () => {
   const [profileImageUrl, setProfileImageUrl] = React.useState<string | null>(null)
 
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
   const router = useRouter()
+  const [token, setToken] = useState<string | null>(null);
+
+  // ✅ Get token from localStorage safely
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedToken = localStorage.getItem('token');
+      setToken(storedToken);
+    }
+  }, []);
 
   const {
     register,

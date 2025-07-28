@@ -20,9 +20,13 @@ import { BookType } from '@/types/book'
 const BookListingPage = () => {
 
   const[book , setBook] = useState<BookType[]>([])
-  const token = localStorage.getItem('token')
-  const user = JSON.parse(localStorage.getItem('user') || '{}')
-  const role = user?.role
+  //token  & user from local storage
+  const [token, setToken] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null)
+
+  // const token = localStorage.getItem('token')
+  // const user = JSON.parse(localStorage.getItem('user') || '{}')
+  // const userRole = user?.role
 
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
@@ -30,6 +34,23 @@ const BookListingPage = () => {
   const limit = 6
   const skip = (page -1) * limit
   const totalPages = Math.ceil(total/limit)
+
+
+  useEffect(() => {
+    // ✅ This code runs only in the browser (not on server)
+    if (typeof window !== 'undefined') {
+      // Get token from localStorage
+      const storedToken = localStorage.getItem('token');
+
+      // Get user info (like role) from localStorage
+      const storedUser = localStorage.getItem('user');
+      const user = storedUser ? JSON.parse(storedUser) : null;
+
+      // Save values to state
+      setToken(storedToken);
+      setRole(user?.role || null); // role might be "seller", "admin", etc.
+    }
+  }, []);
 
   useEffect(() => {
 
