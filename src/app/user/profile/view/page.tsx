@@ -55,20 +55,22 @@ const ViewProfilePage = () => {
       //cookie remove
       await fetch('/api/auth/clear-cookie',{
         method: 'POST'
+      }).then((res)=>{
+        //remove from local storage
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+
+        //update context
+        setToken(null)
+
+        //redirect to home
+        router.replace('/')
+      }).catch((err)=>{
+        console.warn('Failed to clear cookies', err)
       })
     }catch(err){
       console.warn('Failed to clear cookies', err)
     }
-
-    //remove from local storage
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-
-    //update context
-    setToken(null)
-
-    //redirect to home
-    router.replace('/')
   }
 
 
