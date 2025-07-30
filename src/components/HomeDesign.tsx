@@ -41,7 +41,7 @@ const HomeDesign = () => {
             {/* Text + Button */}
             <div>
               <p className="text-gray-700 text-base md:text-lg mb-6">
-                Dive into stories that transport you beyond imagination. Whether you're looking for mystery, magic, or meaning—<strong>Booksy</strong> brings your next adventure to your fingertips.
+                Dive into stories that transport you beyond imagination. Whether you&aposre looking for mystery, magic, or meaning—<strong>Booksy</strong> brings your next adventure to your fingertips.
               </p>
               <Link href="/login">
                 <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300">
