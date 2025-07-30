@@ -101,6 +101,7 @@ const BookListingPage = () => {
               variant="contained"
               sx={{
                 backgroundColor: '#6b4c3b',
+                margin: '30px',
                 color: 'white',
                 fontWeight: 600,
                 textTransform: 'none',

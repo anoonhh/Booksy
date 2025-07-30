@@ -21,6 +21,7 @@ import * as yup from 'yup'
 import { useRouter } from 'next/navigation'
 // import { RegistrationFormData } from '@/types/product'
 import api from '@/lib/api'
+import Image from 'next/image'
 
 const schema = yup.object().shape({
   name : yup.string().required("Name is required"),
@@ -55,6 +56,17 @@ const RegistrationPage = () => {
     resolver : yupResolver(schema)
   })
 
+  const [previewImageUrl, setPreviewImageUrl] = React.useState<string | null>(null)
+  
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if(file && ['image/jpeg', 'image/png','image/jpg'].includes(file.type)){
+        setPreviewImageUrl(URL.createObjectURL(file))
+      }
+      
+      register('image').onChange(e)
+    }
+
   const router = useRouter()
 
   const onSubmit = async (data: RegistrationFormData) => {
@@ -77,6 +89,17 @@ const RegistrationPage = () => {
 
       localStorage.setItem('token', res.data.access_token)
       localStorage.setItem('user',JSON.stringify(res.data.data))
+
+      //set cookie value
+      const cookie = await fetch('/api/auth/set-cookies',{
+        method: 'POST',
+        headers:{'Content-Type' : 'application/json'},
+        body: JSON.stringify({token: res.data.access_token, role: res.data.data.role })
+      })
+
+      if (!cookie.ok) {
+        console.warn('Failed to set cookies')
+      }
 
       router.push('/books/listing')
     }
@@ -167,13 +190,27 @@ const RegistrationPage = () => {
               sx={{ mt: 3, textAlign: 'left' }}
               >
               Upload Profile Image
-              <input type="file" accept="image/*" hidden {...register('image')} />
+              <input type="file" accept="image/*" hidden {...register('image')} onChange={handleImageChange}/>
               {errors.image && (
                 <Typography variant="body2" color="error" sx={{ mt: 1, ml: 1 }}>
                   {errors.image.message?.toString()}
                 </Typography>
               )}
             </Button>
+              {previewImageUrl && (
+                 <Box mt={2} display="flex" justifyContent="center">
+                   <Image
+                     src={previewImageUrl}
+                     alt="Preview"
+                     width={150}
+                     height={200}
+                     style={{
+                       borderRadius: '8px',
+                       objectFit: 'cover',
+                     }}
+                   />
+                 </Box>
+               )}
 
             {/* Submit Button */}
             <Button

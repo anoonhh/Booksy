@@ -94,7 +94,7 @@ const Header = () => {
           </Box>
               
             ) : (
-              <Box sx={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 4, alignItems: 'center' }}>
                 <Link href="/books/listing">
                   <Typography
                     sx={{
@@ -163,6 +163,9 @@ const Header = () => {
       <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
         <Box sx={{ width: 250, mt: 5 }} role="presentation" onClick={toggleDrawer(false)}>
           <List>
+
+          {!token ? (
+            <>
             <Link href="/" passHref>
               <ListItem button>
                 <ListItemText primary="Home" />
@@ -173,7 +176,27 @@ const Header = () => {
                 <ListItemText primary="Login" />
               </ListItem>
             </Link>
-          </List>
+            </>
+
+
+          ) : (
+
+            <>
+            <Link href="/books/listing" passHref>
+              <ListItem button>
+                <ListItemText primary="Browse" />
+              </ListItem>
+            </Link>
+            <Link href="/user/profile/view" passHref>
+              <ListItem button>
+                <ListItemText primary="Profile" />
+              </ListItem>
+            </Link>
+            </>
+          
+        )}
+
+        </List>
         </Box>
       </Drawer>
     </Box>
