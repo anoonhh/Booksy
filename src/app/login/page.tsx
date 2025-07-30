@@ -15,6 +15,7 @@ import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '@/context/AuthContext';
+import toast from 'react-hot-toast';
 
 
 const schema = yup.object().shape({
@@ -26,10 +27,6 @@ type LoginFormData = yup.InferType<typeof schema>
 
 const LoginPage = () => {
 
-  // const[user, setUser] = useState({
-  //   email: '',
-  //   password: ''
-  // })
 
   const { register , handleSubmit , formState:{errors} } = useForm({
      resolver: yupResolver(schema)
@@ -41,12 +38,6 @@ const LoginPage = () => {
 
   const {setToken} = useAuth()
 
-  // const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
-  //   setUser((prev) => ({
-  //     ...prev,
-  //     [e.target.name]: e.target.value
-  //   }))
-  // }
 
   const onSubmit = async(data: LoginFormData) => {
 
@@ -57,7 +48,7 @@ const LoginPage = () => {
    })
     .then(async(res) => {
       // console.log(res.data.data)
-      alert("Login successfull")
+      toast.success("Login successfull")
 
       localStorage.setItem('token', res.data.access_token)
       localStorage.setItem('user',JSON.stringify(res.data.data))
@@ -82,7 +73,7 @@ const LoginPage = () => {
 
     })
     .catch((err) => {
-       alert(err.response?.data?.message || 'Invalid Credentials')
+       toast.error(err.response?.data?.message || 'Invalid Credentials')
     })
   }
 

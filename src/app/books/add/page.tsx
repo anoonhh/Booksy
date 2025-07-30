@@ -17,6 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import api from '@/lib/api';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 
 
@@ -117,11 +118,11 @@ const AddBook = () => {
     })
     
     .then((res) => {
-      alert("Book added successfully")
+      toast.success("Book added successfully")
       router.push('/books/listing')
     })
     .catch(() => {
-      alert("Error adding book")
+      toast.error("Error adding book")
     })
     
     

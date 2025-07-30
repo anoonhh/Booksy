@@ -22,6 +22,7 @@ import { useRouter } from 'next/navigation'
 // import { RegistrationFormData } from '@/types/product'
 import api from '@/lib/api'
 import Image from 'next/image'
+import toast from 'react-hot-toast'
 
 const schema = yup.object().shape({
   name : yup.string().required("Name is required"),
@@ -85,7 +86,7 @@ const RegistrationPage = () => {
           'Content-Type': 'multipart/form-data',
         }
       })
-      alert("Registration Successful!")
+      toast.success("Registration Successful!")
 
       localStorage.setItem('token', res.data.access_token)
       localStorage.setItem('user',JSON.stringify(res.data.data))
@@ -104,7 +105,7 @@ const RegistrationPage = () => {
       router.push('/books/listing')
     }
     catch(error){
-      alert('Something went wrong during registration')
+      toast.error('Something went wrong during registration')
     }
   }
 

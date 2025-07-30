@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup';
 import api from '@/lib/api';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 
 const schema = yup.object().shape({
@@ -133,7 +134,7 @@ const UpdateBook = () => {
 
       })
       .catch(() => {
-        alert('error fetching data')
+        toast.error('error fetching data')
       })
      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id])
@@ -164,12 +165,12 @@ const UpdateBook = () => {
           }
           })
           .then((res) => { 
-            alert('Book Updated Successfully!')
+            toast.success('Book Updated Successfully!')
             router.push(`/books/view/${id}`)
         })
       }
       catch{
-        alert('error updating book!')
+        toast.error('error updating book!')
       }
     }
   

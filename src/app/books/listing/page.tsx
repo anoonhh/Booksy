@@ -15,6 +15,7 @@ import {
 import Link from 'next/link'
 import api from '@/lib/api'
 import { BookType } from '@/types/book'
+import toast from 'react-hot-toast'
 
 
 const BookListingPage = () => {
@@ -54,7 +55,7 @@ const BookListingPage = () => {
 
   useEffect(() => {
 
-    if (!token) return; // ⛔ don't call API if token not ready
+    if (!token) return; //  don't call API if token not ready
 
     api.get(`/api/book?limit=${limit}&skip=${skip}`, {
       headers: {
@@ -66,7 +67,7 @@ const BookListingPage = () => {
       setTotal(res.data.total);
     })
     .catch((err) => {
-      alert('Error fetching books')
+      toast.error('Error fetching books')
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[page,token])

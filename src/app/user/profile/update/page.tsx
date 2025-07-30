@@ -16,6 +16,7 @@ import * as yup from 'yup';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import toast from 'react-hot-toast';
 
 
 const schema = yup.object().shape({
@@ -91,7 +92,7 @@ const UpdateProfilePage = () => {
       setProfileImageUrl(resData.image)
     })
     .catch((err) => {
-      alert('Error fetching Data!')
+      toast.error('Error fetching Data!')
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[token])
@@ -122,11 +123,11 @@ const UpdateProfilePage = () => {
         'Authorization': `Bearer ${token}`
       }
     }).then((res) => {
-      alert('Book updated successfully')
+      toast.success('Book updated successfully')
       router.push('/user/profile/view')
     })
     .catch(() => {
-      alert('Error updating book')
+      toast.error('Error updating book')
     })
     
   }

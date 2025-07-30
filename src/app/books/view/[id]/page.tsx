@@ -15,6 +15,7 @@ import { BookType } from '@/types/book'
 import { useParams, useRouter } from 'next/navigation'
 import api from '@/lib/api'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import toast from 'react-hot-toast'
 
 const ViewBookPage = () => {
   const [book, setBook] = useState<BookType>()
@@ -38,7 +39,7 @@ const ViewBookPage = () => {
         setBook(res.data.data)
       })
       .catch((err) => {
-        alert('Unable to load book!')
+        toast.error('Unable to load book!')
       })
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
@@ -64,11 +65,11 @@ const ViewBookPage = () => {
       }
     })
     .then(() => {
-      alert('Book deleted successfully!')
+      toast.success('Book deleted successfully!')
       router.push('/books/listing')
     })
     .catch(() => {
-      alert('Unable to delete book!')
+      toast.error('Unable to delete book!')
     })
   }
 

@@ -19,6 +19,7 @@ import { RegistrationFormData } from '@/types/register'
 import api from '@/lib/api'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '@/context/AuthContext'
+import toast from 'react-hot-toast'
 
 
 
@@ -42,7 +43,7 @@ const ViewProfilePage = () => {
         setUser(res.data.data)
     })
     .catch((err) => {
-        alert("Error fetching data")
+        toast.error("Error fetching data")
     })
   },[])
 
